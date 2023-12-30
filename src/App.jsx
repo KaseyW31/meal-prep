@@ -2,7 +2,7 @@ import { useState } from 'react'
 import './App.css'
 import MealsTable from "./components/MealsTable";
 import IngredientsTable from "./components/IngredientsTable";
-import Planner from "./components/Planner";
+// import Planner from "./components/Planner";
 
 function App() {
 
@@ -46,11 +46,12 @@ function App() {
 
   return (
     <>
-      <IngredientsTable ingredients={INGREDIENTS} />;
-      <MealsTable meals={MEALS} />;
-      <Planner plannedDays={PLANNED_DAYS} />;
+      <IngredientsTable ingredients={INGREDIENTS} />
+      <br></br>
+      <MealsTable meals={MEALS} />
+      {/* <Planner plannedDays={PLANNED_DAYS} />; */}
     </>
   )
 }
 
-export default App
+export default App;
