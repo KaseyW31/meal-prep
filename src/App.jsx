@@ -51,6 +51,7 @@ function App() {
       <br></br>
       <h3>Meals</h3>
       <MealsTable meals={MEALS} />
+      <br></br>
       <h3>Planned Days</h3>
       <Planner plannedDays={PLANNED_DAYS} />
     </>

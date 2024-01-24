@@ -17,7 +17,10 @@ export default function MealsTable({ meals }) {
               <th>Name</th>
             </tr>
           </thead>
-          <tbody>{rows}</tbody>
+          <tbody>
+            {rows}
+            <button type="button">Add</button>
+          </tbody>
         </table>
     );
 }

@@ -11,7 +11,9 @@ export default function DayCard({ day, dayMeals }) {
     })
     return (
         <>
-        <h3>{day}</h3> {/* TODO: check and delete buttons*/}
+        <h3>{day}</h3>
+        <button type="button">Check</button>
+        <button type="button">Delete</button>
         <table>
             <thead>
                 <tr>
@@ -20,7 +22,7 @@ export default function DayCard({ day, dayMeals }) {
             </thead>
             <tbody>{rows}</tbody>
         </table>
-        {/* TODO: add button */}
+        <button type="button">Add</button>
         </>
     );
 }
