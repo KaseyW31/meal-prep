@@ -4,17 +4,14 @@ import MealsTable from "./components/MealsTable";
 import IngredientsTable from "./components/IngredientsTable";
 import Planner from "./components/Planner";
 
-function App() {
+function App(props) {
 
-  const INGREDIENTS = [
-    {name: "soba noodles", qty: 12, unit: "oz"},
-    {name: "bok choy", qty: 2, unit: "lb"},
-    {name: "chicken breast", qty: 6, unit: "oz"},
-    {name: "miso paste", qty: 64, unit: "tbsp"},
-    {name: "oats", qty: 16, unit: "cup"},
-    {name: "milk", qty: 16, unit: "cup"},
-    {name: "banana", qty: 7, unit: null}
-  ];
+  const [ingredients, setIngredients] = useState(props.ingredients);
+
+  function addIngredient(name, qty, unit) {
+    const newIngredient = { name: name, qty: qty, unit: unit };
+    setIngredients([...ingredients, newIngredient]);
+  }
 
   const MEALS = [
     {name: "miso soba", ingredients: [
@@ -47,7 +44,7 @@ function App() {
   return (
     <>
       <h3>Ingredients</h3>
-      <IngredientsTable ingredients={INGREDIENTS} />
+      <IngredientsTable ingredients={ingredients} addIngredient={addIngredient} />
       <br></br>
       <h3>Meals</h3>
       <MealsTable meals={MEALS} />
