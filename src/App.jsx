@@ -2,7 +2,7 @@ import { useState } from 'react'
 import './App.css'
 import MealsTable from "./components/MealsTable";
 import IngredientsTable from "./components/IngredientsTable";
-// import Planner from "./components/Planner";
+import Planner from "./components/Planner";
 
 function App() {
 
@@ -46,10 +46,13 @@ function App() {
 
   return (
     <>
+      <h3>Ingredients</h3>
       <IngredientsTable ingredients={INGREDIENTS} />
       <br></br>
+      <h3>Meals</h3>
       <MealsTable meals={MEALS} />
-      {/* <Planner plannedDays={PLANNED_DAYS} />; */}
+      <h3>Planned Days</h3>
+      <Planner plannedDays={PLANNED_DAYS} />
     </>
   )
 }
