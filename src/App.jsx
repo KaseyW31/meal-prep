@@ -42,16 +42,20 @@ function App(props) {
   ];
 
   return (
-    <>
-      <h3>Ingredients</h3>
-      <IngredientsTable ingredients={ingredients} addIngredient={addIngredient} />
-      <br></br>
-      <h3>Meals</h3>
-      <MealsTable meals={MEALS} />
-      <br></br>
-      <h3>Planned Days</h3>
-      <Planner plannedDays={PLANNED_DAYS} />
-    </>
+    <div className="container">
+      <div className="ingredients">
+        <h3>Ingredients</h3>
+        <IngredientsTable ingredients={ingredients} addIngredient={addIngredient} />
+      </div>
+      <div className="meals">
+        <h3>Meals</h3>
+        <MealsTable meals={MEALS} />
+      </div>
+      <div className="planner">
+        <h3>Planned Days</h3>
+        <Planner plannedDays={PLANNED_DAYS} />
+      </div>
+    </div>
   )
 }
 

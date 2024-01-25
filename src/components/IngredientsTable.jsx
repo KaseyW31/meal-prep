@@ -20,7 +20,7 @@ export default function IngredientsTable(props) {
     }
 
     function handleSubmit(event) {
-      if (name != "" && qty != 0 && unit != "") {
+      if (name != "" && qty != 0) {
         event.preventDefault();
         props.addIngredient(name, qty, unit);
         setAdding(false);

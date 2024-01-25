@@ -10,7 +10,9 @@ export default function Planner({ plannedDays }) {
     return (
         <>
         {cardList}
-        <button type="button">Add</button>
+        <br></br><br></br>
+        <button type="button">Add Day</button>
+        <br></br>
         </>
     );
 }

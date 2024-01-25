@@ -11,7 +11,7 @@ export default function DayCard({ day, dayMeals }) {
     })
     return (
         <>
-        <h3>{day}</h3>
+        <b>{day}</b>
         <button type="button">Check</button>
         <button type="button">Delete</button>
         <table>
@@ -22,7 +22,9 @@ export default function DayCard({ day, dayMeals }) {
             </thead>
             <tbody>{rows}</tbody>
         </table>
-        <button type="button">Add</button>
+        <button type="button">Add Meal</button>
+        <br></br>
+        <br></br>
         </>
     );
 }
