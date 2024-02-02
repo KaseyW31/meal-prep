@@ -4,7 +4,7 @@ export default function MealRow({ meal, mealIngredients }) {
         rows.push(
             <>
             <tr>
-                <td>{ingredient.name}</td>
+                <td>&emsp;{ingredient.name}</td>
                 <td>{ingredient.qty}</td>
             </tr>
             </>
