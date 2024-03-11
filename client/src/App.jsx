@@ -1,8 +1,14 @@
 import { useState } from 'react'
+import { Route, Routes } from "react-router-dom";
+
 import './App.css'
 import MealsTable from "./components/MealsTable";
 import IngredientsTable from "./components/IngredientsTable";
 import Planner from "./components/Planner";
+import Navbar from "./components/navbar";
+import IngredientList from "./components/recordList";
+import Edit from "./components/editIngredient";
+import Create from "./components/createIngredient";
 
 function App(props) {
 
@@ -42,7 +48,13 @@ function App(props) {
   ];
 
   return (
-    <div className="container">
+    <div>
+     <Navbar />
+     <Routes>
+       <Route exact path="/" element={<IngredientList />} />
+       <Route path="/edit/:id" element={<Edit />} />
+       <Route path="/create" element={<Create />} />
+       <Route path="/template" element={<div className="container">
       <div className="ingredients">
         <h3>Ingredients</h3>
         <IngredientsTable ingredients={ingredients} addIngredient={addIngredient} />
@@ -55,7 +67,9 @@ function App(props) {
         <h3>Planned Days</h3>
         <Planner plannedDays={PLANNED_DAYS} />
       </div>
-    </div>
+    </div>} />
+     </Routes>
+   </div>
   )
 }
 
