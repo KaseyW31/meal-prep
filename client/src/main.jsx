@@ -1,21 +1,46 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'
+import * as React from 'react'
+import * as ReactDOM from 'react-dom/client'
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import App from './App.jsx'
-import { BrowserRouter } from "react-router-dom";
+import Ingredient from "./components/ingredient";
+import IngredientList from "./components/ingredientList";
 import './index.css'
 
-ReactDOM.createRoot(document.getElementById('root')).render(
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <App />,
+    children: [
+      {
+        path: "/",
+        element: <IngredientList />,
+      },
+    ],
+  },
+  {
+    path: "/edit/:id",
+    element: <App />,
+    children: [
+      {
+        path: "/edit/:id",
+        element: <Ingredient />,
+      },
+    ],
+  },
+  {
+    path: "/create",
+    element: <App />,
+    children: [
+      {
+        path: "/create",
+        element: <Ingredient />,
+      },
+    ],
+  },
+]);
+
+ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <BrowserRouter>
-      <App ingredients={[
-        {name: "soba noodles", qty: 12, unit: "oz"},
-        {name: "bok choy", qty: 2, unit: "lb"},
-        {name: "chicken breast", qty: 6, unit: "oz"},
-        {name: "miso paste", qty: 64, unit: "tbsp"},
-        {name: "oats", qty: 16, unit: "cup"},
-        {name: "milk", qty: 16, unit: "cup"},
-        {name: "banana", qty: 7, unit: null}
-      ]}/>
-    </BrowserRouter>
-  </React.StrictMode>,
+    <RouterProvider router={router} />
+  </React.StrictMode>
 );

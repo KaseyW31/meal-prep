@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 const Ingredient = (props) => (
  <tr>
@@ -36,7 +36,7 @@ export default function IngredientList() {
  }, [ingredients.length]);
   // This method will delete a record
  async function deleteIngredient(id) {
-   await fetch(`http://localhost:5000/${id}`, {
+   await fetch(`http://localhost:5000/ingredient/${id}`, {
      method: "DELETE"
    });
     const newIngredients = ingredients.filter((el) => el._id !== id);
@@ -56,7 +56,7 @@ export default function IngredientList() {
  }
   // This following section will display the table with the records of individuals.
  return (
-   <div>
+   <div className="container">
      <h3>Ingredient List</h3>
      <table className="table table-striped" style={{ marginTop: 20 }}>
        <thead>

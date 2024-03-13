@@ -47,6 +47,7 @@ router.post("/", async (req, res) => {
 
 // This section will help you update a record by id.
 router.patch("/:id", async (req, res) => {
+  console.log('patching');
   try {
     const query = { _id: new ObjectId(req.params.id) };
     const updates = {
@@ -68,6 +69,7 @@ router.patch("/:id", async (req, res) => {
 
 // This section will help you delete a record
 router.delete("/:id", async (req, res) => {
+  console.log('deleting');
   try {
     const query = { _id: new ObjectId(req.params.id) };
 
