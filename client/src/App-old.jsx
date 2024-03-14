@@ -6,7 +6,7 @@ import MealsTable from "./components/old/MealsTable";
 import IngredientsTable from "./components/old/IngredientsTable";
 import Planner from "./components/old/Planner";
 import Navbar from "./components/navbar";
-import IngredientList from "./components/ingredientList";
+import IngredientList from "./components/ingredientMealLists";
 import Edit from "./components/editIngredient";
 import Create from "./components/createIngredient";
 
