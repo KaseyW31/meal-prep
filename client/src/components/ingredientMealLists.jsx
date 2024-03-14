@@ -40,7 +40,7 @@ export default function IngredientMealLists() {
   // This method fetches the records from the database.
  useEffect(() => {
    async function getIngredients() {
-     const response = await fetch(`http://localhost:5000/ingredient/`);
+     const response = await fetch(`http://localhost:5000/db/ingredient/`);
       if (!response.ok) {
        const message = `An error occurred: ${response.statusText}`;
        window.alert(message);
@@ -54,7 +54,7 @@ export default function IngredientMealLists() {
  }, [ingredients.length]);
   // This method will delete a record
  async function deleteIngredient(id) {
-   await fetch(`http://localhost:5000/ingredient/${id}`, {
+   await fetch(`http://localhost:5000/db/ingredient/${id}`, {
      method: "DELETE"
    });
     const newIngredients = ingredients.filter((el) => el._id !== id);
@@ -77,7 +77,7 @@ export default function IngredientMealLists() {
    // This method fetches the records from the database.
   useEffect(() => {
     async function getMeals() {
-      const response = await fetch(`http://localhost:5000/meal/`);
+      const response = await fetch(`http://localhost:5000/db/meal/`);
        if (!response.ok) {
         const message = `An error occurred: ${response.statusText}`;
         window.alert(message);
@@ -91,7 +91,7 @@ export default function IngredientMealLists() {
   }, [meals.length]);
    // This method will delete a record
   async function deleteMeal(id) {
-    await fetch(`http://localhost:5000/meal/${id}`, {
+    await fetch(`http://localhost:5000/db/meal/${id}`, {
       method: "DELETE"
     });
      const newMeals = meals.filter((el) => el._id !== id);
