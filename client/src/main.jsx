@@ -3,7 +3,8 @@ import * as ReactDOM from 'react-dom/client'
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import App from './App.jsx'
 import Ingredient from "./components/ingredient";
-import IngredientList from "./components/ingredientMealLists.jsx";
+import Meal from "./components/meal";
+import IngredientMealList from "./components/ingredientMealLists.jsx";
 import './index.css'
 
 const router = createBrowserRouter([
@@ -13,27 +14,47 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <IngredientList />,
+        element: <IngredientMealList />,
       },
     ],
   },
   {
-    path: "/edit/:id",
+    path: "/edit/ingredient/:id",
     element: <App />,
     children: [
       {
-        path: "/edit/:id",
+        path: "/edit/ingredient/:id",
         element: <Ingredient />,
       },
     ],
   },
   {
-    path: "/create",
+    path: "/create/ingredient",
     element: <App />,
     children: [
       {
-        path: "/create",
+        path: "/create/ingredient",
         element: <Ingredient />,
+      },
+    ],
+  },
+  {
+    path: "/edit/meal/:id",
+    element: <App />,
+    children: [
+      {
+        path: "/edit/meal/:id",
+        element: <Meal />,
+      },
+    ],
+  },
+  {
+    path: "/create/meal",
+    element: <App />,
+    children: [
+      {
+        path: "/create/meal",
+        element: <Meal />,
       },
     ],
   },
