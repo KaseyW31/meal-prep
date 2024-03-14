@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import IngredientInput from './ingredientInput';
 
-export default function Ingredient() {
+export default function Meal() {
     const [form, setForm] = useState({
       name: "",
-      qty: "",
-      unit: "",
+      ingredients: [],
     });
     const [isNew, setIsNew] = useState(true);
     const params = useParams();
@@ -17,20 +17,20 @@ export default function Ingredient() {
           if(!id) return;
           setIsNew(false);
           const response = await fetch(
-            `http://localhost:5000/ingredient/${params.id.toString()}`
+            `http://localhost:5000/meal/${params.id.toString()}`
           );
           if (!response.ok) {
             const message = `An error has occurred: ${response.statusText}`;
             console.error(message);
             return;
           }
-          const ingredient = await response.json();
-          if (!ingredient) {
-            console.warn(`Ingredient with id ${id} not found`);
+          const meal = await response.json();
+          if (!meal) {
+            console.warn(`Meal with id ${id} not found`);
             navigate("/");
             return;
           }
-          setForm(ingredient);
+          setForm(meal);
         }
         fetchData();
         return;
@@ -46,26 +46,26 @@ export default function Ingredient() {
       // This function will handle the submission.
       async function onSubmit(e) {
         e.preventDefault();
-        const ingred = { ...form };
+        const _meal = { ...form };
         try {
           let response;
           if (isNew) {
             // if we are adding a new record we will POST to /record.
-            response = await fetch("http://localhost:5000/ingredient", {
+            response = await fetch("http://localhost:5000/meal", {
               method: "POST",
               headers: {
                 "Content-Type": "application/json",
               },
-              body: JSON.stringify(ingred),
+              body: JSON.stringify(_meal),
             });
           } else {
             // if we are updating a record we will PATCH to /record/:id.
-            response = await fetch(`http://localhost:5000/ingredient/${params.id}`, {
+            response = await fetch(`http://localhost:5000/meal/${params.id}`, {
               method: "PATCH",
               headers: {
                 "Content-Type": "application/json",
               },
-              body: JSON.stringify(ingred),
+              body: JSON.stringify(_meal),
             });
           }
     
@@ -75,15 +75,36 @@ export default function Ingredient() {
         } catch (error) {
           console.error('A problem occurred with your fetch operation: ', error);
         } finally {
-          setForm({ name: "", qty: "", unit: "" });
+          setForm({ name: "", ingredients: [] });
           navigate("/");
         }
       }
+
+      const handleIngredientChange = (e, index) => {
+        const selectedIngredientId = e.target.value;
+        const updatedIngredients = [...form.ingredients];
+        updatedIngredients[index] = { ...updatedIngredients[index], ingredientId: selectedIngredientId };
+        setForm({ ...form, ingredients: updatedIngredients });
+      };
+    
+      const handleQuantityChange = (e, index) => {
+        const quantity = e.target.value;
+        const updatedIngredients = [...form.ingredients];
+        updatedIngredients[index] = { ...updatedIngredients[index], quantity };
+        setForm({ ...form, ingredients: updatedIngredients });
+      };
+    
+      const addIngredient = () => {
+        setForm({
+          ...form,
+          ingredients: [...form.ingredients, { ingredientId: '', quantity: '' }],
+        });
+      };
     
       // This following section will display the form that takes the input from the user.
       return (
         <div className="container">
-          <h3>Create/Update Ingredient Record</h3>
+          <h3>Create/Update Meal Record</h3>
           <form onSubmit={onSubmit}>
           <div className="form-group">
             <label htmlFor="name">Name</label>
@@ -94,34 +115,16 @@ export default function Ingredient() {
                 value={form.name}
                 onChange={(e) => updateForm({ name: e.target.value })}
             />
-        </div>
-        <div className="form-group">
-         <label htmlFor="qty">Quantity</label>
-         <input
-           type="number"
-           className="form-control"
-           id="qty"
-           value={form.qty}
-           onChange={(e) => updateForm({ qty: e.target.value })}
-         />
-        </div>
-        <div className="form-group">
-            <label htmlFor="unit">Unit</label>
-            <input
-            type="text"
-            className="form-control"
-            id="unit"
-            value={form.unit}
-            onChange={(e) => updateForm({ unit: e.target.value })}
-            />
-        </div>
-        <div className="form-group">
-            <input
-                type="submit"
-                value="Save ingredient"
-                className="btn btn-success"
-            />
-        </div>
+          </div>
+          {form.ingredients.map((ingredient, index) => (
+            <IngredientInput
+            key={index}
+            ingredients={form.ingredients.map((ingred) => ingred.name)} // prob needs fixing
+            onIngredientChange={(e) => handleIngredientChange(e, index)}
+            onQuantityChange={(e) => handleQuantityChange(e, index)}
+          />
+      ))}
+      <button type="button" onClick={addIngredient}>Add Ingredient</button>
         </form>
     </div>
  );
