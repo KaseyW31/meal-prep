@@ -1,15 +1,16 @@
-const IngredientInput = ({ ingredients, onIngredientChange, onQuantityChange }) => {
+const IngredientInput = ({ key, ingredient, allIngredients, onIngredientChange, onQuantityChange }) => {
   return (
     <div>
-      <select onChange={onIngredientChange}>
+      <select style={{background:'white'}} value={ingredient.ingredientId} onChange={onIngredientChange}>
         <option value="">Select Ingredient</option>
-        {ingredients.map((ingredient) => (
-          <option key={ingredient._id} value={ingredient._id}>
-            {ingredient.name}
+        {allIngredients.map((ing) => (
+          <option key={ing._id} value={ing._id}>
+            {ing.name}
           </option>
         ))}
       </select>
-      <input type="number" onChange={onQuantityChange} />
+      <input type="number" value={ingredient.quantity} onChange={onQuantityChange} />
+      {ingredient.qty}
     </div>
   );
 };

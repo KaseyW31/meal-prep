@@ -7,24 +7,42 @@ export default function Meal() {
       name: "",
       ingredients: [],
     });
+    const [allIngredients, setAllIngredients] = useState([]);
     const [isNew, setIsNew] = useState(true);
     const params = useParams();
     const navigate = useNavigate();
+
+    useEffect(() => {
+        async function fetchIngredData() {
+        const ingredResponse = await fetch(
+        `http://localhost:5000/ingredient`
+        );
+        if (!ingredResponse.ok) {
+        const message = `An error has occurred: ${ingredResponse.statusText}`;
+        console.error(message);
+        return;
+        }
+        const allIngreds = await ingredResponse.json();
+        setAllIngredients(allIngreds);
+    }
+    fetchIngredData();
+    return;
+    }, [])
 
     useEffect(() => {
         async function fetchData() {
           const id = params.id?.toString() || undefined;
           if(!id) return;
           setIsNew(false);
-          const response = await fetch(
-            `http://localhost:5000/db/meal/${params.id.toString()}`
+          const mealResponse = await fetch(
+            `http://localhost:5000/meal/${params.id.toString()}`
           );
-          if (!response.ok) {
-            const message = `An error has occurred: ${response.statusText}`;
+          if (!mealResponse.ok) {
+            const message = `An error has occurred: ${mealResponse.statusText}`;
             console.error(message);
             return;
           }
-          const meal = await response.json();
+          const meal = await mealResponse.json();
           if (!meal) {
             console.warn(`Meal with id ${id} not found`);
             navigate("/");
@@ -38,6 +56,7 @@ export default function Meal() {
     
       // These methods will update the state properties.
       function updateForm(value) {
+        console.log(form);
         return setForm((prev) => {
           return { ...prev, ...value };
         });
@@ -51,7 +70,7 @@ export default function Meal() {
           let response;
           if (isNew) {
             // if we are adding a new record we will POST to /record.
-            response = await fetch("http://localhost:5000/db/meal", {
+            response = await fetch("http://localhost:5000/meal", {
               method: "POST",
               headers: {
                 "Content-Type": "application/json",
@@ -60,7 +79,7 @@ export default function Meal() {
             });
           } else {
             // if we are updating a record we will PATCH to /record/:id.
-            response = await fetch(`http://localhost:5000/db/meal/${params.id}`, {
+            response = await fetch(`http://localhost:5000/meal/${params.id}`, {
               method: "PATCH",
               headers: {
                 "Content-Type": "application/json",
@@ -100,7 +119,6 @@ export default function Meal() {
           ingredients: [...form.ingredients, { ingredientId: '', quantity: '' }],
         });
       };
-    
       // This following section will display the form that takes the input from the user.
       return (
         <div className="container">
@@ -119,12 +137,21 @@ export default function Meal() {
           {form.ingredients.map((ingredient, index) => (
             <IngredientInput
             key={index}
-            ingredients={form.ingredients.map((ingred) => ingred.name)} // prob needs fixing
+            ingredient={ingredient}
+            allIngredients={allIngredients} // prob needs fixing
             onIngredientChange={(e) => handleIngredientChange(e, index)}
             onQuantityChange={(e) => handleQuantityChange(e, index)}
           />
       ))}
       <button type="button" onClick={addIngredient}>Add Ingredient</button>
+      <br></br><br></br>
+      <div className="form-group">
+            <input
+                type="submit"
+                value="Save meal"
+                className="btn btn-success"
+            />
+        </div>
         </form>
     </div>
  );

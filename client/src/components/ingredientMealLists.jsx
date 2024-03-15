@@ -6,7 +6,7 @@ const Ingredient = (props) => (
    <td>{props.ingredient.qty}</td>
    <td>{props.ingredient.unit}</td>
    <td>
-     <Link className="btn btn-link" to={`/edit/${props.ingredient._id}`}>Edit</Link> |
+     <Link className="btn btn-link" to={`/edit/ingredient/${props.ingredient._id}`}>Edit</Link> |
      <button className="btn btn-link"
        onClick={() => {
          props.deleteIngredient(props.ingredient._id);
@@ -22,7 +22,7 @@ const Meal = (props) => (
   <tr data-toggle="collapse" data-target={props.key}>
     <td>{props.meal.name}</td>
     <td>
-      <Link className="btn btn-link" to={`/edit/${props.meal._id}`}>Edit</Link> |
+      <Link className="btn btn-link" to={`/edit/meal/${props.meal._id}`}>Edit</Link> |
       <button className="btn btn-link"
         onClick={() => {
           props.deleteMeal(props.key);
@@ -40,7 +40,7 @@ export default function IngredientMealLists() {
   // This method fetches the records from the database.
  useEffect(() => {
    async function getIngredients() {
-     const response = await fetch(`http://localhost:5000/db/ingredient/`);
+     const response = await fetch(`http://localhost:5000/ingredient/`);
       if (!response.ok) {
        const message = `An error occurred: ${response.statusText}`;
        window.alert(message);
@@ -54,7 +54,7 @@ export default function IngredientMealLists() {
  }, [ingredients.length]);
   // This method will delete a record
  async function deleteIngredient(id) {
-   await fetch(`http://localhost:5000/db/ingredient/${id}`, {
+   await fetch(`http://localhost:5000/ingredient/${id}`, {
      method: "DELETE"
    });
     const newIngredients = ingredients.filter((el) => el._id !== id);
@@ -77,7 +77,7 @@ export default function IngredientMealLists() {
    // This method fetches the records from the database.
   useEffect(() => {
     async function getMeals() {
-      const response = await fetch(`http://localhost:5000/db/meal/`);
+      const response = await fetch(`http://localhost:5000/meal/`);
        if (!response.ok) {
         const message = `An error occurred: ${response.statusText}`;
         window.alert(message);
@@ -91,7 +91,7 @@ export default function IngredientMealLists() {
   }, [meals.length]);
    // This method will delete a record
   async function deleteMeal(id) {
-    await fetch(`http://localhost:5000/db/meal/${id}`, {
+    await fetch(`http://localhost:5000/meal/${id}`, {
       method: "DELETE"
     });
      const newMeals = meals.filter((el) => el._id !== id);

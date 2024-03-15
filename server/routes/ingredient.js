@@ -13,6 +13,7 @@ const router = express.Router();
 
 // This section will help you get a list of all the records.
 router.get("/", async (req, res) => {
+  console.log("hi");
   let collection = await db.collection("ingredients");
   let results = await collection.find({}).toArray();
   res.send(results).status(200);
@@ -47,7 +48,6 @@ router.post("/", async (req, res) => {
 
 // This section will help you update a record by id.
 router.patch("/:id", async (req, res) => {
-  console.log('patching');
   try {
     const query = { _id: new ObjectId(req.params.id) };
     const updates = {
