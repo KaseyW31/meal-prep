@@ -25,7 +25,3 @@ dist-ssr
 *.sw?
 
 server/config.env
-client/components/App-old.css
-client/components/App-old.jsx
-client/components/old/*
-server/db/tutorial.js
