@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 
+// Manages form for creating/modifying an ingredient
 export default function Ingredient() {
     const [form, setForm] = useState({
       name: "",
@@ -11,6 +12,7 @@ export default function Ingredient() {
     const params = useParams();
     const navigate = useNavigate();
 
+    // Find ingredient from url if already exists
     useEffect(() => {
         async function fetchData() {
           const id = params.id?.toString() || undefined;
@@ -36,21 +38,21 @@ export default function Ingredient() {
         return;
       }, [params.id, navigate]);
     
-      // These methods will update the state properties.
+      // Update the state properties
       function updateForm(value) {
         return setForm((prev) => {
           return { ...prev, ...value };
         });
       }
     
-      // This function will handle the submission.
+      // Posts new ingredient or patches existing one
       async function onSubmit(e) {
         e.preventDefault();
         const ingred = { ...form };
         try {
           let response;
           if (isNew) {
-            // if we are adding a new record we will POST to /record.
+            // for adding new ingredient
             response = await fetch("http://localhost:5000/ingredient", {
               method: "POST",
               headers: {
@@ -59,7 +61,7 @@ export default function Ingredient() {
               body: JSON.stringify(ingred),
             });
           } else {
-            // if we are updating a record we will PATCH to /record/:id.
+            // for updating existing ingredient
             response = await fetch(`http://localhost:5000/ingredient/${params.id}`, {
               method: "PATCH",
               headers: {
@@ -80,7 +82,7 @@ export default function Ingredient() {
         }
       }
     
-      // This following section will display the form that takes the input from the user.
+      // Displays form to create/modify ingredient
       return (
         <div className="container">
           <h3>Create/Update Ingredient Record</h3>

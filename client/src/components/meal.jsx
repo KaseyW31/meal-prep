@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import IngredientInput from './ingredientInput';
 
+// Manages form for creating/modifying a meal
 export default function Meal() {
     const [form, setForm] = useState({
       name: "",
@@ -12,6 +13,7 @@ export default function Meal() {
     const params = useParams();
     const navigate = useNavigate();
 
+    // Get all existing ingredients for dropdown menu
     useEffect(() => {
         async function fetchIngredData() {
         const ingredResponse = await fetch(
@@ -29,6 +31,7 @@ export default function Meal() {
     return;
     }, [])
 
+    // Finds meal from url if already exists
     useEffect(() => {
         async function fetchData() {
           const id = params.id?.toString() || undefined;
@@ -54,7 +57,7 @@ export default function Meal() {
         return;
       }, [params.id, navigate]);
     
-      // These methods will update the state properties.
+      // Update state properties
       function updateForm(value) {
         console.log(form);
         return setForm((prev) => {
@@ -62,14 +65,14 @@ export default function Meal() {
         });
       }
     
-      // This function will handle the submission.
+      // Posts new meal or patches existing
       async function onSubmit(e) {
         e.preventDefault();
         const _meal = { ...form };
         try {
           let response;
           if (isNew) {
-            // if we are adding a new record we will POST to /record.
+            // for adding new meal
             response = await fetch("http://localhost:5000/meal", {
               method: "POST",
               headers: {
@@ -78,7 +81,7 @@ export default function Meal() {
               body: JSON.stringify(_meal),
             });
           } else {
-            // if we are updating a record we will PATCH to /record/:id.
+            // for updating existing meal
             response = await fetch(`http://localhost:5000/meal/${params.id}`, {
               method: "PATCH",
               headers: {
@@ -119,7 +122,8 @@ export default function Meal() {
           ingredients: [...form.ingredients, { ingredientId: '', quantity: '' }],
         });
       };
-      // This following section will display the form that takes the input from the user.
+
+      // Displays form to create/modify meal
       return (
         <div className="container">
           <h3>Create/Update Meal Record</h3>
@@ -138,7 +142,7 @@ export default function Meal() {
             <IngredientInput
             key={index}
             ingredient={ingredient}
-            allIngredients={allIngredients} // prob needs fixing
+            allIngredients={allIngredients}
             onIngredientChange={(e) => handleIngredientChange(e, index)}
             onQuantityChange={(e) => handleQuantityChange(e, index)}
           />

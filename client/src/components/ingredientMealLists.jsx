@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+
+// Single row for an ingredient
 const Ingredient = (props) => (
  <tr>
    <td>{props.ingredient.name}</td>
@@ -18,6 +20,7 @@ const Ingredient = (props) => (
  </tr>
 );
 
+// Single row for a meal
 const Meal = (props) => (
   <tr data-toggle="collapse" data-target={props.key}>
     <td>{props.meal.name}</td>
@@ -37,7 +40,7 @@ const Meal = (props) => (
 
 export default function IngredientMealLists() {
  const [ingredients, setIngredients] = useState([]);
-  // This method fetches the records from the database.
+  // Fetches ingredients
  useEffect(() => {
    async function getIngredients() {
      const response = await fetch(`http://localhost:5000/ingredient/`);
@@ -52,7 +55,7 @@ export default function IngredientMealLists() {
     getIngredients();
     return;
  }, [ingredients.length]);
-  // This method will delete a record
+  // Method to delete an ingredient
  async function deleteIngredient(id) {
    await fetch(`http://localhost:5000/ingredient/${id}`, {
      method: "DELETE"
@@ -60,7 +63,7 @@ export default function IngredientMealLists() {
     const newIngredients = ingredients.filter((el) => el._id !== id);
    setIngredients(newIngredients);
  }
-  // This method will map out the records on the table
+  // Maps out ingredients onto table
  function ingredientList() {
    return ingredients.map((ingredient) => {
      return (
@@ -74,7 +77,7 @@ export default function IngredientMealLists() {
  }
 
   const [meals, setMeals] = useState([]);
-   // This method fetches the records from the database.
+   // Fetches meals
   useEffect(() => {
     async function getMeals() {
       const response = await fetch(`http://localhost:5000/meal/`);
@@ -89,7 +92,7 @@ export default function IngredientMealLists() {
      getMeals();
      return;
   }, [meals.length]);
-   // This method will delete a record
+   // Method to delete a meal
   async function deleteMeal(id) {
     await fetch(`http://localhost:5000/meal/${id}`, {
       method: "DELETE"
@@ -97,7 +100,7 @@ export default function IngredientMealLists() {
      const newMeals = meals.filter((el) => el._id !== id);
     setIngredients(newMeals);
   }
-   // This method will map out the records on the table
+   // Maps out meals on table
   function mealList() {
     return meals.map((meal) => {
       return (
@@ -110,7 +113,7 @@ export default function IngredientMealLists() {
     });
   }
 
-  // This following section will display the table with the records of individuals.
+  // Displays ingredient and meal tables
  return (
    <div className="container">
     <div className="row">
