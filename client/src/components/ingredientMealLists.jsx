@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCirclePlus, faPencil, faTrashCan } from '@fortawesome/free-solid-svg-icons'
 
 // Single row for an ingredient
 const Ingredient = (props) => (
@@ -8,13 +10,13 @@ const Ingredient = (props) => (
    <td>{props.ingredient.qty}</td>
    <td>{props.ingredient.unit}</td>
    <td>
-     <Link className="btn btn-link" to={`/edit/ingredient/${props.ingredient._id}`}>Edit</Link> |
+     <Link className="btn btn-link" to={`/edit/ingredient/${props.ingredient._id}`}><FontAwesomeIcon icon={faPencil} color="gray"/></Link>
      <button className="btn btn-link"
        onClick={() => {
          props.deleteIngredient(props.ingredient._id);
        }}
      >
-       Delete
+    <FontAwesomeIcon icon={faTrashCan} color="gray"/>
      </button>
    </td>
  </tr>
@@ -25,13 +27,13 @@ const Meal = (props) => (
   <tr data-toggle="collapse" data-target={props.key}>
     <td>{props.meal.name}</td>
     <td>
-      <Link className="btn btn-link" to={`/edit/meal/${props.meal._id}`}>Edit</Link> |
+      <Link className="btn btn-link" to={`/edit/meal/${props.meal._id}`}><FontAwesomeIcon icon={faPencil} color="gray"/></Link>
       <button className="btn btn-link"
         onClick={() => {
           props.deleteMeal(props.key);
         }}
       >
-        Delete
+      <FontAwesomeIcon icon={faTrashCan} color="gray"/>
       </button>
     </td>
   </tr>
@@ -39,6 +41,7 @@ const Meal = (props) => (
  );
 
 export default function IngredientMealLists() {
+  const navigate = useNavigate();
  const [ingredients, setIngredients] = useState([]);
   // Fetches ingredients
  useEffect(() => {
@@ -118,8 +121,8 @@ export default function IngredientMealLists() {
    <div className="container">
     <div className="row">
       <div className="col">
-        <h3>Ingredient List</h3>
-        <table className="table table-striped" style={{ marginTop: 20 }}>
+        <h4>Ingredients <FontAwesomeIcon icon={faCirclePlus} onClick={() => navigate("/create/ingredient")} cursor="pointer" color="darkgreen"/></h4>
+        <table className="table table-sm table-striped" style={{ marginTop: 20 }}>
           <thead>
             <tr>
               <th>Name</th>
@@ -132,8 +135,8 @@ export default function IngredientMealLists() {
         </table>
       </div>
       <div className="col">
-        <h3>Meal List</h3>
-        <table className="table table-striped" style={{ marginTop: 20}}>
+        <h4>Meals <FontAwesomeIcon icon={faCirclePlus} onClick={() => navigate("/create/meal")} cursor="pointer" color="darkgreen"/></h4>
+        <table className="table table-sm table-striped" style={{ marginTop: 20}}>
           <thead>
             <tr>
               <th>Name</th>
