@@ -1,5 +1,5 @@
 // Dropdown menu to add new ingredient
-const IngredientInput = ({ key, ingredient, allIngredients, onIngredientChange, onQuantityChange }) => {
+const IngredientInput = ({ key, ingredient, unit, allIngredients, onIngredientChange, onQuantityChange }) => {
   return (
     <div>
       <select style={{background:'white'}} value={ingredient.ingredientId} onChange={onIngredientChange}>
@@ -11,6 +11,7 @@ const IngredientInput = ({ key, ingredient, allIngredients, onIngredientChange, 
         ))}
       </select>
       <input type="number" value={ingredient.quantity} onChange={onQuantityChange} />
+      {unit}
     </div>
   );
 };

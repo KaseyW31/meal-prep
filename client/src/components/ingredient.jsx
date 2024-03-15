@@ -44,10 +44,19 @@ export default function Ingredient() {
           return { ...prev, ...value };
         });
       }
+
+      function validateFormName() {
+        if (form.name == "") {
+          alert("Please give your ingredient a name");
+          return false;
+        }
+      }
     
       // Posts new ingredient or patches existing one
       async function onSubmit(e) {
         e.preventDefault();
+        if (!validateFormName())
+          return false;
         const ingred = { ...form };
         try {
           let response;

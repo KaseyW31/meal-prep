@@ -64,10 +64,23 @@ export default function Meal() {
           return { ...prev, ...value };
         });
       }
+
+      function validateFormName() {
+        if (form.name == "") {
+          alert("Please give your meal a name");
+          return false;
+        }
+        if (form.ingredients.length == 0) {
+          alert("Please add at least one ingredient");
+          return false;
+        }
+      }
     
       // Posts new meal or patches existing
       async function onSubmit(e) {
         e.preventDefault();
+        if (!validateFormName())
+          return false;
         const _meal = { ...form };
         try {
           let response;
@@ -142,6 +155,7 @@ export default function Meal() {
             <IngredientInput
             key={index}
             ingredient={ingredient}
+            unit={allIngredients.find((e) => e._id == ingredient.ingredientId)?.unit}
             allIngredients={allIngredients}
             onIngredientChange={(e) => handleIngredientChange(e, index)}
             onQuantityChange={(e) => handleQuantityChange(e, index)}
