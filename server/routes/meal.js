@@ -59,7 +59,6 @@ router.patch("/:id", async (req, res) => {
 
 // Delete a meal
 router.delete("/:id", async (req, res) => {
-  console.log('deleting');
   try {
     const query = { _id: new ObjectId(req.params.id) };
 

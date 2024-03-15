@@ -74,6 +74,7 @@ export default function Meal() {
           alert("Please add at least one ingredient");
           return false;
         }
+        return true;
       }
     
       // Posts new meal or patches existing

@@ -50,6 +50,7 @@ export default function Ingredient() {
           alert("Please give your ingredient a name");
           return false;
         }
+        return true;
       }
     
       // Posts new ingredient or patches existing one

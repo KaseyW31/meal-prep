@@ -7,7 +7,6 @@ const router = express.Router();
 
 // Get list of all ingredients
 router.get("/", async (req, res) => {
-  console.log("hi");
   let collection = await db.collection("ingredients");
   let results = await collection.find({}).toArray();
   res.send(results).status(200);
@@ -63,7 +62,6 @@ router.patch("/:id", async (req, res) => {
 
 // Delete ingredient
 router.delete("/:id", async (req, res) => {
-  console.log('deleting');
   try {
     const query = { _id: new ObjectId(req.params.id) };
 
